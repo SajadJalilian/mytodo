@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Todo</title>
+	</head>
+	<body>
+		<h2>this is todo</h2>
+
+		<!-- from -->
+		<form action="{% url 'add' %}" method="POST" role="form">
+			{% csrf_token %} {{ form.text }}
+			<span>
+				<button type="submit">
+					ADD
+				</button>
+			</span>
+		</form>
+		<!-- end form -->
+		<br />
+		<a href="{% url 'deletecomplete'  %}"
+			><button type="submit">delete complete</button></a
+		>
+		<a href="{% url 'deleteall'  %}"
+			><button type="submit">delete all</button></a
+		>
+
+		<ul>
+			{% for todo in todo_list %} {% if todo.complete %}
+			<li>
+				<strike>{{todo.text}}</strike>
+			</li>
+			{% else %}
+			<a href="{% url 'complete' todo.id %}">
+				<li>
+					{{todo.text}}
+				</li>
+			</a>
+
+			{% endif %} {% endfor %}
+		</ul>
+	</body>
+</html>
